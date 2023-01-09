@@ -21,7 +21,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 options = webdriver.ChromeOptions()
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
 
-delay = 0.01
+delay = 0.02
 
 driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
 
