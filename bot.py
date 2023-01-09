@@ -26,7 +26,7 @@ def monkeytype():
             ActionChains(driver).send_keys([letter.text for letter in driver.find_element(By.CSS_SELECTOR, ".word.active").find_elements(By.TAG_NAME, "letter")] + [' ']).perform()
             time.sleep(delay)
     except Exception as e:
-        print(e)
+        print("Hi")
     
 
 input("Press any KEY to Start--")
