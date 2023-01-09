@@ -1,3 +1,16 @@
+'''
+Requirements:
+selenium
+webdriver_manager
+
+To build:
+pipenv is used
+install all the requirements in a pipenv environment
+install pyinstaller
+run the following command:
+pyinstaller --clean .\monkettypebot.spec
+'''
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver import ActionChains
@@ -18,7 +31,7 @@ def monkeytype():
     try:
         driver.find_elements(By.CLASS_NAME, "acceptAll")[0].click()
     except Exception as e:
-        print(e)
+        print("")
         return
 
     try:
@@ -26,7 +39,7 @@ def monkeytype():
             ActionChains(driver).send_keys([letter.text for letter in driver.find_element(By.CSS_SELECTOR, ".word.active").find_elements(By.TAG_NAME, "letter")] + [' ']).perform()
             time.sleep(delay)
     except Exception as e:
-        print("Hi")
+        print("")
     
 
 input("Press any KEY to Start--")
