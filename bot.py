@@ -15,14 +15,15 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import NoSuchElementException
 import time
 
 from webdriver_manager.chrome import ChromeDriverManager
 
 # params
 opt = True
-delay = 0.06
-delayRan = 0.05
+delay = 0.08
+delayRan = 0.06
 div = 3
 diva = 2
 algo = 2
@@ -70,8 +71,10 @@ def monkeytype():
             print(e)
             
     elif algo == 2:
-        try:
-            while True:
+        round = 1
+        while True:
+            try:
+                
                 count = 0
                 while len(driver.find_elements(By.CLASS_NAME, "word")) != 0:
                     delayE = delay
@@ -86,15 +89,28 @@ def monkeytype():
                         ActionChains(driver).send_keys(letter).perform()
                         time.sleep(delay)
                         count += 1
+                    
+                    
                 
-                time.sleep(5)
-                
-                ActionChains(driver).send_keys(Keys.TAB).perform()
-                
-                time.sleep(2)
+            except Exception as e:
+                print(e)
             
-        except Exception as e:
-            print(e)
+            time.sleep(5)
+            
+            wpm = -1
+            
+            while wpm == -1:
+                try:
+                    wpm = driver.find_element(By.CSS_SELECTOR, ".group.wpm").find_element(By.CLASS_NAME, "bottom").text
+                except NoSuchElementException:
+                    wpm = -1
+                    
+            print("Round:", round, "WPM:", wpm)
+            ActionChains(driver).send_keys(Keys.TAB).perform()
+            
+            round += 1
+            
+            time.sleep(5)
     
 
 input("Press any KEY to Start--")
